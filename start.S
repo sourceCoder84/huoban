@@ -16,13 +16,13 @@ _start:
 	 * 如果写成功那么说明是sram -->nand启动
 	 * 如果写不成功那么说明是nor启动
 	 */
-	ldr r1, =0
+	mov r1, #0
 	ldr r0, [r1]                              /*保存0地址的值*/ 
 	str r1, [r1]                               /*向0地址写入0*/   
 	ldr r2, [r1]                              /*读出0地址的值到r1*/  
 	cmp r1, r2                               /*比较r1和r2两者的值*/
 	ldr sp, =0x40000000 + 4096   /*默认nor启动*/
-	ldreq sp, =4096                      /*如果r1 == r2 nand启动*/
+	moveq sp, #4096                      /*如果r1 == r2 nand启动*/
 	streq r0, [r1]                           /*如果是nand启动要恢复0地址的数据*/
 	 
 
