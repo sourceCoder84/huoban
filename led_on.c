@@ -1,15 +1,31 @@
 
-int main(){
+void delay(volatile int d){
 
-	unsigned int *pGPFCON = (unsigned int *)0x56000050;
-	unsigned int *pGPFDAT = (unsigned int *)0x56000054;
-
-	/*配置GPF4为输出引脚*/
-	*pGPFCON = 0x100;
-
-	/*配置GPF4输出0*/
-	*pGPFDAT = 0;
-
-	return 0;
-	
+	while(d--);
 }
+
+
+int led_on(int which)
+{
+
+		unsigned int *pGPFCON = (unsigned int *)0x56000050;
+		unsigned int *pGPFDAT = (unsigned int *)0x56000054;
+
+		if (which == 4) {
+			/*配置GPF4为输出引脚*/
+			*pGPFCON = 0x100;
+
+			/*配置GPF4输出0*/
+			*pGPFDAT = 0;
+		}else if (which == 5) {
+
+			/*配置GPF5为输出引脚*/
+			*pGPFCON = 0x400;
+
+			/*配置GPF5输出0*/
+			*pGPFDAT = 0;
+		}
+	return 0;
+}
+
+
